@@ -1,5 +1,5 @@
-from machine import Pin
-import time
+import camera
+import network
 
 def connect_wifi():
     try:
@@ -27,7 +27,7 @@ def camera_init():
             print("camera.init False")
     except Exception as e:
         camera.deinit()
-        if not camera.init(0, format=camera.JPEG, fb_location=camera.PSRAM):
+        if not camera.init(0, format=camera.JPEG):
             print("camera.init False")
             return
 
@@ -98,6 +98,8 @@ def camera_init():
     camera.rawgma(1)
 
 def run():
+    import time
+    from machine import Pin
     camera_init()
     ip = connect_wifi()
     print("Camera Ready! Use 'http://"+ip + "'to connect" )
